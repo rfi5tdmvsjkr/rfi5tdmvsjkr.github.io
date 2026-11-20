@@ -1,0 +1,1431 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蚂蚁bt下载_资源分发工具_高效稳定的下载社区官网</title>
+<meta name="description" content="蚂蚁bt下载官方网站，专注BT资源分发与云端加速的企业级下载平台，为创作者与用户搭建高效、正版、高清的资源内容生态。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M18 22h28v6H34v20h-6V28H18z' fill='%2322d3ee'/%3E%3Ccircle cx='46' cy='40' r='4' fill='%23f97316'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ab-bg:#0b1220;
+  --ab-panel:#111c30;
+  --ab-panel-2:#16243d;
+  --ab-line:rgba(120,170,255,.16);
+  --ab-text:#e8eefc;
+  --ab-muted:#9db0ce;
+  --ab-cyan:#22d3ee;
+  --ab-cyan-soft:rgba(34,211,238,.14);
+  --ab-orange:#f97316;
+  --ab-green:#34d399;
+  --ab-radius:16px;
+  --ab-max:1200px;
+  --ab-announce-h:52px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--ab-announce-h) + 68px)}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,Segoe UI,sans-serif;
+  background:
+    radial-gradient(900px 500px at 12% -8%,rgba(34,211,238,.16),transparent 60%),
+    radial-gradient(800px 460px at 92% 4%,rgba(249,115,22,.12),transparent 62%),
+    var(--ab-bg);
+  color:var(--ab-text);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+ul{list-style:none}
+.ab-wrap{max-width:var(--ab-max);margin:0 auto;padding:0 22px}
+.ab-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ===== 公告条 ===== */
+.ab-announce{
+  position:sticky;top:0;z-index:60;
+  height:var(--ab-announce-h);
+  display:flex;align-items:center;
+  background:linear-gradient(90deg,#0e3a4a,#123a5c 45%,#3a2410);
+  border-bottom:1px solid var(--ab-line);
+  font-size:14px;color:#cfe9f7;
+}
+.ab-announce .ab-wrap{display:flex;align-items:center;gap:14px;width:100%;overflow:hidden}
+.ab-announce-tag{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;
+  background:var(--ab-orange);color:#231000;font-weight:700;
+  padding:2px 10px;border-radius:999px;font-size:12px;letter-spacing:.04em;
+}
+.ab-announce-track{overflow:hidden;flex:1;white-space:nowrap}
+.ab-announce-inner{display:inline-flex;gap:34px;animation:ab-marquee 32s linear infinite}
+.ab-announce-inner b{color:#fff}
+.ab-announce-inner .ab-dot{color:var(--ab-cyan)}
+@keyframes ab-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ab-announce time{color:var(--ab-cyan);font-variant-numeric:tabular-nums}
+
+/* ===== 页头 ===== */
+.ab-header{
+  position:sticky;top:var(--ab-announce-h);z-index:55;
+  background:rgba(11,18,32,.86);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--ab-line);
+}
+.ab-header .ab-wrap{display:flex;align-items:center;gap:20px;height:68px}
+.ab-brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.ab-brand-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(140deg,#0e7490,#22d3ee);display:grid;place-items:center;font-weight:800;color:#04121b;font-size:18px}
+.ab-brand-name{font-size:19px;font-weight:800;letter-spacing:.02em}
+.ab-brand-name small{display:block;font-size:11px;color:var(--ab-muted);font-weight:500;letter-spacing:.16em}
+.ab-nav{display:flex;gap:6px;margin-left:14px;flex:1}
+.ab-nav a{padding:8px 14px;border-radius:10px;font-size:15px;color:#c3d3ec;transition:.22s}
+.ab-nav a:hover,.ab-nav a:focus-visible{background:var(--ab-cyan-soft);color:var(--ab-cyan)}
+.ab-search{position:relative;flex:0 0 250px}
+.ab-search input{
+  width:100%;height:40px;border-radius:10px;border:1px solid var(--ab-line);
+  background:rgba(255,255,255,.05);color:var(--ab-text);padding:0 14px 0 36px;font-size:14px;outline:none;
+  transition:.22s;
+}
+.ab-search input::placeholder{color:#7f93b3}
+.ab-search input:focus{border-color:var(--ab-cyan);box-shadow:0 0 0 3px rgba(34,211,238,.14)}
+.ab-search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#7f93b3;font-size:15px}
+.ab-search-tip{
+  position:absolute;left:0;right:0;top:46px;background:var(--ab-panel);
+  border:1px solid var(--ab-line);border-radius:12px;padding:8px;font-size:13px;color:var(--ab-muted);
+  display:none;box-shadow:0 18px 40px rgba(0,0,0,.5);z-index:5;
+}
+.ab-search-tip.ab-open{display:block}
+.ab-search-tip strong{color:var(--ab-cyan)}
+.ab-burger{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--ab-line);color:#cfe0f7;font-size:19px}
+
+/* ===== 按钮 ===== */
+.ab-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px;padding:12px 22px;font-weight:600;font-size:15px;transition:.22s;white-space:nowrap}
+.ab-btn-main{background:linear-gradient(120deg,#22d3ee,#0ea5b7);color:#04121b}
+.ab-btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(34,211,238,.28)}
+.ab-btn-ghost{border:1px solid var(--ab-line);color:#d7e5fa;background:rgba(255,255,255,.03)}
+.ab-btn-ghost:hover{border-color:var(--ab-cyan);color:var(--ab-cyan)}
+.ab-btn-sm{padding:7px 14px;font-size:13px;border-radius:9px}
+
+/* ===== 首屏 ===== */
+.ab-hero{padding:64px 0 56px;position:relative;overflow:hidden}
+.ab-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.ab-hero-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--ab-cyan);letter-spacing:.14em;border:1px solid rgba(34,211,238,.34);padding:5px 14px;border-radius:999px;margin-bottom:20px}
+.ab-hero-eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--ab-cyan);box-shadow:0 0 10px var(--ab-cyan)}
+.ab-h1{font-size:clamp(36px,5vw,58px);line-height:1.12;font-weight:900;letter-spacing:-.01em;margin-bottom:18px}
+.ab-h1 em{font-style:normal;background:linear-gradient(100deg,#22d3ee,#7dd3fc 55%,#f97316);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ab-hero-lead{font-size:17px;color:#c3d3ec;max-width:560px;margin-bottom:16px}
+.ab-hero-intro{font-size:15px;color:var(--ab-muted);max-width:570px;margin-bottom:26px}
+.ab-hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px}
+.ab-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:520px}
+.ab-stat{background:rgba(255,255,255,.035);border:1px solid var(--ab-line);border-radius:13px;padding:14px 16px}
+.ab-stat b{display:block;font-size:26px;font-weight:800;color:var(--ab-cyan);font-variant-numeric:tabular-nums;line-height:1.2}
+.ab-stat span{font-size:12.5px;color:var(--ab-muted);letter-spacing:.04em}
+.ab-hero-visual{position:relative}
+.ab-hero-frame{
+  border-radius:20px;overflow:hidden;border:1px solid rgba(34,211,238,.24);
+  box-shadow:0 30px 70px rgba(0,0,0,.55);position:relative;aspect-ratio:16/11;
+  background:#0a1526;
+}
+.ab-hero-frame svg{width:100%;height:100%}
+.ab-hero-float{
+  position:absolute;left:-16px;bottom:26px;background:rgba(13,24,42,.94);
+  border:1px solid var(--ab-line);border-radius:14px;padding:12px 16px;font-size:13px;color:#cfe0f7;
+  display:flex;align-items:center;gap:11px;box-shadow:0 16px 34px rgba(0,0,0,.5);
+}
+.ab-hero-float b{color:var(--ab-green)}
+.ab-pulse{width:9px;height:9px;border-radius:50%;background:var(--ab-green);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:ab-pulse 2s infinite}
+@keyframes ab-pulse{70%{box-shadow:0 0 0 11px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+
+/* ===== 通用区块 ===== */
+.ab-section{padding:58px 0}
+.ab-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:32px;flex-wrap:wrap}
+.ab-section-kicker{font-size:12.5px;letter-spacing:.2em;color:var(--ab-cyan);margin-bottom:8px;font-weight:600}
+.ab-h2{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.005em;line-height:1.25}
+.ab-section-desc{color:var(--ab-muted);font-size:14.5px;max-width:560px;margin-top:10px}
+
+/* ===== 深度解析 ===== */
+.ab-deep{background:linear-gradient(180deg,rgba(34,211,238,.05),rgba(34,211,238,0));border-top:1px solid var(--ab-line);border-bottom:1px solid var(--ab-line)}
+.ab-deep-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.ab-deep h3{font-size:20px;font-weight:700;margin-bottom:12px;color:#eef5ff;display:flex;align-items:center;gap:9px}
+.ab-deep h3::before{content:"";width:4px;height:19px;border-radius:2px;background:linear-gradient(180deg,var(--ab-cyan),var(--ab-orange))}
+.ab-deep p{color:#b6c7e2;font-size:15px;margin-bottom:14px;text-align:justify}
+.ab-deep .ab-deep-card{
+  background:rgba(255,255,255,.035);border:1px solid var(--ab-line);border-radius:var(--ab-radius);
+  padding:20px 22px;margin-bottom:16px;
+}
+.ab-deep .ab-deep-card h4{font-size:16px;color:var(--ab-cyan);margin-bottom:6px;font-weight:700}
+.ab-deep .ab-deep-card p{margin:0;font-size:14.5px;color:#a9bcd8}
+
+/* ===== 焦点视频 ===== */
+.ab-focus-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:22px}
+.ab-card{
+  background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:var(--ab-radius);
+  overflow:hidden;transition:.26s;position:relative;
+}
+.ab-card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.45);box-shadow:0 20px 44px rgba(0,0,0,.45)}
+.ab-cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a1526}
+.ab-cover svg{width:100%;height:100%}
+.ab-cover-play{
+  position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:.26s;background:rgba(4,10,20,.35);
+}
+.ab-card:hover .ab-cover-play{opacity:1}
+.ab-cover-play span{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:#07131f;font-size:17px;padding-left:4px}
+.ab-cover-tag{position:absolute;left:12px;top:12px;background:rgba(6,18,30,.78);border:1px solid rgba(34,211,238,.4);color:var(--ab-cyan);font-size:12px;padding:3px 10px;border-radius:6px;backdrop-filter:blur(6px)}
+.ab-cover-dur{position:absolute;right:12px;bottom:12px;background:rgba(4,10,20,.82);color:#dbeafe;font-size:12px;padding:2px 8px;border-radius:5px;font-variant-numeric:tabular-nums}
+.ab-cover-mask{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(4,10,20,.72))}
+.ab-body{padding:16px 18px 18px}
+.ab-body h3{font-size:16.5px;font-weight:700;line-height:1.45;margin-bottom:8px}
+.ab-body h3 a:hover{color:var(--ab-cyan)}
+.ab-body p{font-size:13.5px;color:var(--ab-muted);margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ab-card-lg .ab-body h3{font-size:20px}
+.ab-card-lg .ab-body p{font-size:14.5px;-webkit-line-clamp:3}
+.ab-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:#8ba1c2}
+.ab-avatar{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#06121c;flex:0 0 auto}
+.ab-meta .ab-sep{width:3px;height:3px;border-radius:50%;background:#54688a}
+.ab-actions{display:flex;align-items:center;gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(120,170,255,.1);font-size:12.5px;color:#8ba1c2}
+.ab-actions button{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:7px;transition:.2s}
+.ab-actions button:hover{background:var(--ab-cyan-soft);color:var(--ab-cyan)}
+.ab-actions button.ab-liked{color:var(--ab-cyan)}
+.ab-actions button.ab-saved{color:var(--ab-orange)}
+.ab-focus-side{display:grid;grid-template-rows:repeat(2,1fr);gap:22px}
+
+/* ===== 视频流 ===== */
+.ab-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.ab-tag-btn{border:1px solid var(--ab-line);border-radius:999px;padding:6px 16px;font-size:13.5px;color:#b6c7e2;transition:.22s;background:rgba(255,255,255,.025)}
+.ab-tag-btn:hover{border-color:var(--ab-cyan);color:var(--ab-cyan)}
+.ab-tag-btn.ab-active{background:var(--ab-cyan);color:#04121b;border-color:var(--ab-cyan);font-weight:600}
+.ab-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ab-flow .ab-card.ab-hide{display:none}
+
+/* ===== 专题 ===== */
+.ab-topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ab-topic{
+  border-radius:var(--ab-radius);padding:24px;border:1px solid var(--ab-line);
+  background:linear-gradient(150deg,rgba(34,211,238,.1),rgba(249,115,22,.07));
+  display:flex;flex-direction:column;gap:12px;transition:.26s;position:relative;overflow:hidden;
+}
+.ab-topic:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.5)}
+.ab-topic-no{font-size:38px;font-weight:900;color:rgba(34,211,238,.22);line-height:1;font-variant-numeric:tabular-nums}
+.ab-topic h3{font-size:18px;font-weight:700}
+.ab-topic p{font-size:13.8px;color:var(--ab-muted);flex:1}
+.ab-topic-foot{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#8ba1c2;border-top:1px solid rgba(120,170,255,.12);padding-top:12px}
+.ab-status{font-size:12px;padding:2px 9px;border-radius:999px}
+.ab-status-run{background:rgba(52,211,153,.16);color:var(--ab-green)}
+.ab-status-soon{background:rgba(249,115,22,.16);color:var(--ab-orange)}
+
+/* ===== 创作者 ===== */
+.ab-creator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ab-creator{
+  background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:var(--ab-radius);
+  padding:22px 20px;text-align:center;transition:.26s;
+}
+.ab-creator:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.45)}
+.ab-creator-avatar{width:66px;height:66px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font-size:23px;font-weight:800;color:#06121c;position:relative}
+.ab-creator-avatar::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px dashed rgba(34,211,238,.5)}
+.ab-creator h3{font-size:16px;font-weight:700;margin-bottom:5px}
+.ab-creator .ab-role{font-size:12.5px;color:var(--ab-cyan);margin-bottom:9px}
+.ab-creator p{font-size:13px;color:var(--ab-muted);margin-bottom:14px;min-height:38px}
+.ab-creator-data{display:flex;justify-content:center;gap:18px;font-size:12.5px;color:#8ba1c2;border-top:1px solid rgba(120,170,255,.1);padding-top:12px}
+.ab-creator-data b{color:#dbeafe;font-weight:700}
+
+/* ===== 评价 ===== */
+.ab-review-section{background:linear-gradient(180deg,rgba(249,115,22,.05),transparent 70%)}
+.ab-review-flow{columns:3;column-gap:20px}
+.ab-review{
+  break-inside:avoid;background:var(--ab-panel-2);border:1px solid var(--ab-line);
+  border-radius:14px;padding:18px 20px;margin-bottom:20px;transition:.24s;
+}
+.ab-review:hover{border-color:rgba(34,211,238,.4);transform:translateY(-3px)}
+.ab-review-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ab-review-head .ab-avatar{width:34px;height:34px;font-size:13px}
+.ab-review-name{font-size:13.5px;font-weight:600}
+.ab-review-name small{display:block;font-weight:400;color:#7f93b3;font-size:11.5px}
+.ab-review-stars{margin-left:auto;color:var(--ab-orange);font-size:12px;letter-spacing:1px}
+.ab-review p{font-size:14px;color:#bccce4;line-height:1.72}
+
+/* ===== 更新日志 ===== */
+.ab-log-list{display:flex;flex-direction:column;gap:0;border-left:2px solid rgba(34,211,238,.28);margin-left:8px}
+.ab-log{position:relative;padding:0 0 26px 28px}
+.ab-log::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--ab-cyan);box-shadow:0 0 0 4px rgba(34,211,238,.16)}
+.ab-log time{font-size:12.5px;color:var(--ab-cyan);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.ab-log h3{font-size:16px;font-weight:700;margin:5px 0 6px}
+.ab-log p{font-size:14px;color:var(--ab-muted)}
+
+/* ===== FAQ ===== */
+.ab-faq{display:flex;flex-direction:column;gap:12px;max-width:880px;margin:0 auto}
+.ab-faq details{
+  background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:13px;
+  padding:0 20px;transition:.22s;
+}
+.ab-faq details[open]{border-color:rgba(34,211,238,.45);background:var(--ab-panel-2)}
+.ab-faq summary{
+  cursor:pointer;list-style:none;padding:16px 0;font-size:15.5px;font-weight:600;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.ab-faq summary::-webkit-details-marker{display:none}
+.ab-faq summary::after{content:"+";color:var(--ab-cyan);font-size:20px;font-weight:400;line-height:1;transition:.2s}
+.ab-faq details[open] summary::after{transform:rotate(45deg)}
+.ab-faq details p{font-size:14px;color:var(--ab-muted);padding:0 0 18px;max-width:760px}
+
+/* ===== 合作 & 联系 ===== */
+.ab-partners{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.ab-partner{
+  border:1px solid var(--ab-line);border-radius:12px;height:76px;display:grid;place-items:center;
+  font-size:14px;font-weight:600;color:#9db0ce;background:rgba(255,255,255,.028);transition:.22s;text-align:center;padding:0 8px;
+}
+.ab-partner:hover{border-color:var(--ab-cyan);color:var(--ab-cyan)}
+.ab-contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px}
+.ab-contact-card{
+  background:linear-gradient(150deg,rgba(34,211,238,.12),rgba(15,23,42,.6));
+  border:1px solid rgba(34,211,238,.28);border-radius:var(--ab-radius);padding:28px;
+}
+.ab-contact-card h3{font-size:20px;margin-bottom:10px;font-weight:700}
+.ab-contact-card p{font-size:14.5px;color:#b6c7e2;margin-bottom:18px}
+.ab-contact-actions{display:flex;gap:12px;flex-wrap:wrap}
+.ab-contact-list{display:flex;flex-direction:column;gap:14px}
+.ab-contact-item{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid var(--ab-line);border-radius:12px;padding:14px 16px}
+.ab-contact-item b{display:block;font-size:14px;margin-bottom:2px}
+.ab-contact-item span{font-size:13px;color:var(--ab-muted)}
+.ab-contact-ico{width:34px;height:34px;border-radius:9px;background:var(--ab-cyan-soft);color:var(--ab-cyan);display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+
+/* ===== 页脚 ===== */
+.ab-footer{border-top:1px solid var(--ab-line);padding:48px 0 26px;background:rgba(6,12,22,.7)}
+.ab-footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px;margin-bottom:34px}
+.ab-footer h4{font-size:14px;font-weight:700;margin-bottom:14px;color:#e5eefc;letter-spacing:.02em}
+.ab-footer ul li{margin-bottom:9px;font-size:13.5px;color:#94a9c8}
+.ab-footer ul li a:hover{color:var(--ab-cyan)}
+.ab-footer-brand p{font-size:13.5px;color:#8ba1c2;margin:12px 0 0;max-width:330px}
+.ab-footer-bottom{border-top:1px solid rgba(120,170,255,.12);padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#7f93b3}
+
+/* ===== 回到顶部 & toast ===== */
+.ab-top{
+  position:fixed;right:24px;bottom:28px;width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(140deg,#22d3ee,#0e7490);color:#04121b;display:grid;place-items:center;
+  font-size:18px;box-shadow:0 14px 30px rgba(34,211,238,.32);opacity:0;pointer-events:none;transition:.28s;z-index:50;
+}
+.ab-top.ab-show{opacity:1;pointer-events:auto}
+.ab-top:hover{transform:translateY(-3px)}
+.ab-toast{
+  position:fixed;left:50%;bottom:36px;transform:translate(-50%,20px);z-index:99;
+  background:rgba(6,18,30,.96);border:1px solid rgba(34,211,238,.5);color:#dbeafe;
+  padding:11px 22px;border-radius:11px;font-size:14px;opacity:0;pointer-events:none;transition:.28s;
+  box-shadow:0 18px 40px rgba(0,0,0,.55);
+}
+.ab-toast.ab-show{opacity:1;transform:translate(-50%,0)}
+
+/* ===== 弹窗 ===== */
+.ab-modal{
+  position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:20px;
+  background:rgba(3,8,16,.72);backdrop-filter:blur(6px);
+}
+.ab-modal.ab-open{display:grid}
+.ab-modal-box{
+  background:var(--ab-panel);border:1px solid rgba(34,211,238,.32);border-radius:18px;
+  max-width:520px;width:100%;padding:28px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6);
+  max-height:86vh;overflow-y:auto;
+}
+.ab-modal-box h3{font-size:20px;margin-bottom:8px;font-weight:700}
+.ab-modal-box p{font-size:14px;color:var(--ab-muted);margin-bottom:16px}
+.ab-modal-close{position:absolute;right:16px;top:14px;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:#9db0ce;font-size:18px}
+.ab-modal-close:hover{background:rgba(255,255,255,.07);color:#fff}
+.ab-field{margin-bottom:14px}
+.ab-field label{display:block;font-size:13px;margin-bottom:6px;color:#c3d3ec}
+.ab-field input,.ab-field textarea{
+  width:100%;border:1px solid var(--ab-line);border-radius:10px;background:rgba(255,255,255,.05);
+  color:var(--ab-text);padding:10px 13px;font-size:14px;outline:none;font-family:inherit;resize:vertical;
+}
+.ab-field input:focus,.ab-field textarea:focus{border-color:var(--ab-cyan)}
+.ab-share-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.ab-share-row button{border:1px solid var(--ab-line);border-radius:10px;padding:9px 16px;font-size:13.5px;color:#b6c7e2}
+.ab-share-row button:hover{border-color:var(--ab-cyan);color:var(--ab-cyan)}
+
+/* ===== 响应式 ===== */
+@media(max-width:1024px){
+  .ab-hero-grid{grid-template-columns:1fr;gap:36px}
+  .ab-deep-grid{grid-template-columns:1fr}
+  .ab-focus-grid{grid-template-columns:1fr}
+  .ab-focus-side{grid-template-rows:none;grid-template-columns:1fr 1fr}
+  .ab-flow{grid-template-columns:1fr 1fr}
+  .ab-topic-grid{grid-template-columns:1fr 1fr}
+  .ab-creator-grid{grid-template-columns:1fr 1fr}
+  .ab-review-flow{columns:2}
+  .ab-partners{grid-template-columns:repeat(3,1fr)}
+  .ab-contact-grid{grid-template-columns:1fr}
+  .ab-footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:820px){
+  .ab-nav{
+    position:absolute;left:0;right:0;top:68px;background:rgba(9,16,28,.98);
+    flex-direction:column;padding:12px;gap:2px;border-bottom:1px solid var(--ab-line);
+    display:none;
+  }
+  .ab-nav.ab-open{display:flex}
+  .ab-nav a{padding:12px 16px}
+  .ab-burger{display:grid;place-items:center;margin-left:auto}
+  .ab-search{display:none;flex:1}
+  .ab-header .ab-wrap{gap:12px}
+}
+@media(max-width:640px){
+  .ab-announce{font-size:12.5px}
+  .ab-section{padding:42px 0}
+  .ab-hero{padding:40px 0}
+  .ab-stats{grid-template-columns:1fr 1fr}
+  .ab-flow{grid-template-columns:1fr}
+  .ab-focus-side{grid-template-columns:1fr}
+  .ab-topic-grid{grid-template-columns:1fr}
+  .ab-creator-grid{grid-template-columns:1fr}
+  .ab-review-flow{columns:1}
+  .ab-partners{grid-template-columns:1fr 1fr}
+  .ab-footer-grid{grid-template-columns:1fr}
+  .ab-hero-float{left:8px;bottom:12px;font-size:12px;padding:9px 12px}
+  .ab-section-head{flex-direction:column;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- ============ 公告条 ============ -->
+<div class="ab-announce" role="region" aria-label="站点更新公告">
+  <div class="ab-wrap">
+    <span class="ab-announce-tag">官方发布</span>
+    <div class="ab-announce-track">
+      <div class="ab-announce-inner">
+        <span><b>11月19日</b> 蚂蚁bt下载 4.3 版本上线，新增分片校验与断点续传策略</span>
+        <span class="ab-dot">◆</span>
+        <span>「创作者种子工程」第二期开放报名，<b>12月3日</b> 截止</span>
+        <span class="ab-dot">◆</span>
+        <span>专题企划《城市资源档案·成都篇》已更新至第 6 集</span>
+        <span class="ab-dot">◆</span>
+        <span><b>11月19日</b> 蚂蚁bt下载 4.3 版本上线，新增分片校验与断点续传策略</span>
+        <span class="ab-dot">◆</span>
+        <span>「创作者种子工程」第二期开放报名，<b>12月3日</b> 截止</span>
+        <span class="ab-dot">◆</span>
+        <span>专题企划《城市资源档案·成都篇》已更新至第 6 集</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 页头 ============ -->
+<header class="ab-header">
+  <div class="ab-wrap">
+    <a class="ab-brand" href="#ab-top" aria-label="蚂蚁bt下载官方网站首页">
+      <span class="ab-brand-mark" aria-hidden="true">蚁</span>
+      <span class="ab-brand-name">蚂蚁bt下载<small>ANT-BT DOWNLOAD</small></span>
+    </a>
+    <nav class="ab-nav" id="abNav" aria-label="主导航">
+      <a href="#ab-focus">焦点内容</a>
+      <a href="#ab-flow">热门视频</a>
+      <a href="#ab-topic">专题企划</a>
+      <a href="#ab-creator">创作者</a>
+      <a href="#ab-deep">品牌解析</a>
+      <a href="#ab-log">企业动态</a>
+      <a href="#ab-faq">帮助</a>
+    </nav>
+    <div class="ab-search">
+      <span class="ab-search-ico" aria-hidden="true">⌕</span>
+      <input type="search" id="abSearchInput" placeholder="搜索资源、专题、创作者" aria-label="站内搜索">
+      <div class="ab-search-tip" id="abSearchTip"></div>
+    </div>
+    <button class="ab-burger" id="abBurger" aria-label="展开导航菜单" aria-expanded="false" aria-controls="abNav">☰</button>
+  </div>
+</header>
+
+<main id="ab-top">
+
+  <!-- ============ 首屏 ============ -->
+  <section class="ab-hero">
+    <div class="ab-wrap">
+      <div class="ab-hero-grid">
+        <div>
+          <span class="ab-hero-eyebrow"><i aria-hidden="true"></i>蚂蚁bt下载 · 官方网站</span>
+          <h1 class="ab-h1">蚂蚁bt下载<em>让每一份资源</em>高效抵达</h1>
+          <p class="ab-hero-lead">专注 BT 资源分发与云端加速的企业级下载平台，为创作者与企业搭建高品质、正版、高清的内容生态。</p>
+          <p class="ab-hero-intro">作为深耕资源分发垂直领域多年的品牌，蚂蚁bt下载官方网站持续运营着一套面向创作者与普通用户的双向通道：创作者在这里上传原创种子与作品档案，用户在这里获取可校验、可追溯的下载体验。我们相信，真实、温暖的技术力量，藏在每一次稳定握手的连接里。</p>
+          <div class="ab-hero-actions">
+            <a class="ab-btn ab-btn-main" href="#ab-flow">浏览热门视频</a>
+            <button class="ab-btn ab-btn-ghost" data-ab-modal="submit">提交创作投稿</button>
+            <button class="ab-btn ab-btn-ghost" data-ab-modal="share">分享本站</button>
+          </div>
+          <div class="ab-stats">
+            <div class="ab-stat"><b data-ab-count="128600">0</b><span>累计收录资源条目</span></div>
+            <div class="ab-stat"><b data-ab-count="2460">0</b><span>活跃创作者</span></div>
+            <div class="ab-stat"><b data-ab-count="99.2">0</b><span>节点可用率 %</span></div>
+          </div>
+        </div>
+        <div class="ab-hero-visual">
+          <div class="ab-hero-frame">
+            <svg viewBox="0 0 640 440" role="img" aria-label="蚂蚁bt下载品牌主视觉：节点连成的资源分发生态网络">
+              <defs>
+                <linearGradient id="abHeroBg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0a1a2e"/>
+                  <stop offset="1" stop-color="#0f2b3d"/>
+                </linearGradient>
+                <linearGradient id="abHeroBeam" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#22d3ee" stop-opacity=".85"/>
+                  <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="640" height="440" fill="url(#abHeroBg)"/>
+              <g stroke="#1c4a5e" stroke-width="1">
+                <path d="M0 90 H640 M0 180 H640 M0 270 H640 M0 360 H640"/>
+                <path d="M110 0 V440 M230 0 V440 M350 0 V440 M470 0 V440 M580 0 V440"/>
+              </g>
+              <circle cx="320" cy="220" r="96" fill="none" stroke="#22d3ee" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="6 8"/>
+              <circle cx="320" cy="220" r="142" fill="none" stroke="#f97316" stroke-opacity=".22" stroke-width="1.2" stroke-dasharray="3 10"/>
+              <g fill="#22d3ee">
+                <circle cx="320" cy="220" r="9"/>
+                <circle cx="228" cy="150" r="5"/>
+                <circle cx="424" cy="158" r="5"/>
+                <circle cx="236" cy="300" r="5"/>
+                <circle cx="418" cy="298" r="5"/>
+                <circle cx="320" cy="96" r="4"/>
+                <circle cx="320" cy="344" r="4"/>
+              </g>
+              <g stroke="#22d3ee" stroke-opacity=".45" stroke-width="1.4">
+                <path d="M320 220 L228 150 M320 220 L424 158 M320 220 L236 300 M320 220 L418 298 M320 220 L320 96 M320 220 L320 344"/>
+              </g>
+              <g fill="#f97316">
+                <circle cx="150" cy="86" r="3.5"/>
+                <circle cx="505" cy="120" r="3.5"/>
+                <circle cx="120" cy="352" r="3.5"/>
+                <circle cx="512" cy="336" r="3.5"/>
+              </g>
+              <rect x="272" y="196" width="96" height="48" rx="9" fill="#071321" stroke="#22d3ee" stroke-opacity=".5"/>
+              <text x="320" y="219" text-anchor="middle" font-family="monospace" font-size="15" fill="#22d3ee" letter-spacing="1">ANT-BT</text>
+              <text x="320" y="236" text-anchor="middle" font-family="monospace" font-size="9" fill="#7f9bb8" letter-spacing="2">PEER NETWORK</text>
+              <rect x="0" y="0" width="640" height="440" fill="url(#abHeroBeam)" opacity=".07"/>
+            </svg>
+          </div>
+          <div class="ab-hero-float">
+            <span class="ab-pulse" aria-hidden="true"></span>
+            当前全网节点在线 <b>1,842</b> · 平均握手 <b>0.9s</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 深度解析 ============ -->
+  <section class="ab-section ab-deep" id="ab-deep">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">BRAND INSIGHT</div>
+          <h2 class="ab-h2">关于蚂蚁bt下载，我们想认真介绍一次</h2>
+          <p class="ab-section-desc">从技术底座到内容生态，一个资源分发品牌为什么需要被完整地讲清楚。</p>
+        </div>
+      </div>
+      <div class="ab-deep-grid">
+        <div>
+          <h3>它是什么，以及它为什么存在</h3>
+          <p>蚂蚁bt下载是一个以 BT 协议为核心的资源分发与内容聚合品牌。用一句话概括：它把原本零散、粗糙、难以校验的资源交换行为，整理成了一套有秩序、有记录、有评价体系的品牌化服务。在官方网站上，你可以看到的不只是下载入口，还有围绕资源本身生长的教程、测评、访谈、城市探索与创作幕后内容。</p>
+          <p>做这件事的起点很朴素。早年间的资源分享依赖论坛与私人种子，质量参差、来源不明、失效频繁。蚂蚁bt下载团队从 2014 年开始搭建自有的索引与校验体系，用分片哈希、健康度评分、来源标注三套机制，把「能不能下」变成了「值不值得下」。这套方法论后来成为品牌的底层资产，也让蚂蚁bt下载在垂直领域里逐渐积累起口碑。</p>
+          <p>今天的蚂蚁bt下载更像一个内容生态，而非单纯的工具。创作者在平台上提交原创种子与作品档案，我们在企业级的存储与带宽支撑下完成归档；普通用户则通过清晰的分类、可信的元数据与社区评价，找到真正需要的资源。平台不生产内容，但平台为内容的可信度负责——这是品牌持续运营的根本原则。</p>
+          <h3>我们服务谁，以及怎么服务</h3>
+          <p>第一类是创作者。独立影像团队、开源项目中转者、手工教程作者、城市影像记录者，他们需要一个稳定、正版、可追踪的分发通道。蚂蚁bt下载为这部分用户提供创作者档案页、作品集展示、种子归档与流量统计，还会定期邀请他们参与企划专题与访谈栏目，让内容被看见，也让人被记住。</p>
+          <p>第二类是企业与机构。开源软件基金会、教育机构、公益影像组织，需要在低带宽成本下完成大规模分发。我们提供的分片校验、断点续传、节点调度与企业级日志审计，能够满足对稳定性和可追溯性的严格要求，同时保持对访问者友好的下载体验。</p>
+          <p>第三类是普通用户。他们或许只想找一份清晰的老电影修复档案、一套设计素材、一期城市漫步影像。对他们来说，蚂蚁bt下载的价值在于：不用在垃圾信息里反复试错，打开页面就能看到健康度、来源、更新时间和真实评价。</p>
+        </div>
+        <div>
+          <div class="ab-deep-card">
+            <h4>技术底座：分片校验与健康度评分</h4>
+            <p>每一份入库资源都经过分片哈希校验，健康度由在线节点数、历史完整度、举报率三项加权计算。评分不美化数据，低分资源会被明确标注。</p>
+          </div>
+          <div class="ab-deep-card">
+            <h4>内容准则：真实、正版、可追溯</h4>
+            <p>平台只收录来源清晰、权属可查的条目。创作者需在提交时声明授权方式，官方审核团队会在 48 小时内完成复核，正版优先是硬性规则。</p>
+          </div>
+          <div class="ab-deep-card">
+            <h4>社区机制：评价、举报与共创</h4>
+            <p>用户可以对资源做出评价与举报，创作者可以回应反馈。每月官方会公示处理结果，让内容生态的每一次修正都被记录在案。</p>
+          </div>
+          <div class="ab-deep-card">
+            <h4>品牌愿景：做值得信赖的分发基础设施</h4>
+            <p>我们不做流量生意，只做基础设施。蚂蚁bt下载希望成为用户首选的资源分发品牌，一个可以陪伴创作者长期成长、对社会责任有明确担当的平台。</p>
+          </div>
+          <div class="ab-deep-card">
+            <h4>为什么叫「蚂蚁」</h4>
+            <p>蚂蚁个体微小，但群体协作能搬运远超自身体量的东西。这恰好是 BT 协议的隐喻：每个节点贡献一点带宽，整体就形成惊人的分发能力。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 焦点内容 ============ -->
+  <section class="ab-section" id="ab-focus">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">FOCUS</div>
+          <h2 class="ab-h2">本周焦点内容</h2>
+          <p class="ab-section-desc">编辑团队从近 300 条更新中挑出的 6 条，兼顾技术深度与观看质感。</p>
+        </div>
+        <a class="ab-btn ab-btn-ghost ab-btn-sm" href="#ab-flow">查看全部视频</a>
+      </div>
+
+      <div class="ab-focus-grid">
+        <article class="ab-card ab-card-lg">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：城市夜色中的分布式节点调度示意图">
+              <defs><linearGradient id="abCv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b2338"/><stop offset="1" stop-color="#123c4d"/></linearGradient></defs>
+              <rect width="640" height="360" fill="url(#abCv1)"/>
+              <g stroke="#1f566b" stroke-width="1"><path d="M0 260 L160 200 L320 250 L480 190 L640 240"/><path d="M0 300 L160 250 L320 292 L480 236 L640 286"/></g>
+              <g fill="#22d3ee" opacity=".9"><rect x="70" y="150" width="60" height="90" rx="4"/><rect x="250" y="110" width="46" height="130" rx="4"/><rect x="430" y="140" width="72" height="100" rx="4"/><rect x="540" y="170" width="40" height="70" rx="4"/></g>
+              <g stroke="#22d3ee" stroke-opacity=".4" stroke-dasharray="5 7"><path d="M100 150 L273 110 L466 140 L560 170"/></g>
+              <g fill="#f97316" opacity=".85"><circle cx="273" cy="110" r="4"/><circle cx="466" cy="140" r="4"/></g>
+              <text x="32" y="60" font-family="monospace" font-size="13" fill="#7fd8e8" letter-spacing="2">EP.24 / NODE SCHEDULING</text>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">技术解析</span>
+            <span class="ab-cover-dur">18:42</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">一集讲透：BT 分片校验如何把「下坏」的概率压到千分之一</a></h3>
+            <p>从哈希树到快速恢复，我们用动画拆开蚂蚁bt下载 4.3 版本的校验链路，顺便解释为什么「断点续传」在弱网环境下比带宽更值得优化。</p>
+            <div class="ab-meta">
+              <span class="ab-avatar" style="background:#22d3ee">蚁</span>
+              <span>蚂蚁bt下载技术组</span><span class="ab-sep"></span><span>2026-11-17</span><span class="ab-sep"></span><span>4.8 万次播放</span>
+            </div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 3,204</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-comment="1"><span aria-hidden="true">💬</span><span>评论 186</span></button>
+              <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+            </div>
+          </div>
+        </article>
+
+        <div class="ab-focus-side">
+          <article class="ab-card">
+            <div class="ab-cover">
+              <svg viewBox="0 0 640 360" role="img" aria-label="封面：成都老茶馆与街巷的光影记录">
+                <defs><linearGradient id="abCv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b2412"/><stop offset="1" stop-color="#7a4a1e"/></linearGradient></defs>
+                <rect width="640" height="360" fill="url(#abCv2)"/>
+                <g fill="#f2c58a" opacity=".9"><circle cx="520" cy="82" r="44"/></g>
+                <g stroke="#2a1a0d" stroke-width="8" fill="none"><path d="M0 268 L640 268"/></g>
+                <g fill="#20140a"><rect x="70" y="168" width="120" height="100"/><polygon points="60,168 130,110 200,168"/><rect x="240" y="196" width="150" height="72"/><polygon points="232,196 315,146 398,196"/></g>
+                <g fill="#f2c58a" opacity=".75"><rect x="96" y="196" width="26" height="34"/><rect x="150" y="196" width="26" height="34"/><rect x="278" y="216" width="30" height="26"/><rect x="330" y="216" width="30" height="26"/></g>
+                <g stroke="#f2c58a" stroke-opacity=".5" stroke-width="2"><path d="M0 300 Q160 280 320 300 T640 296"/></g>
+              </svg>
+              <div class="ab-cover-mask"></div>
+              <span class="ab-cover-tag">城市探索</span>
+              <span class="ab-cover-dur">12:05</span>
+              <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+            </div>
+            <div class="ab-body">
+              <h3><a href="#ab-flow">城市资源档案·成都：在茶馆里做一次资源交换实验</a></h3>
+              <p>我们带着 20 份城市影像种子走进老茶馆，记录一次线下互传的下午。</p>
+              <div class="ab-meta">
+                <span class="ab-avatar" style="background:#f2c58a">城</span>
+                <span>巷口记录组</span><span class="ab-sep"></span><span>2.1 万次播放</span>
+              </div>
+              <div class="ab-actions">
+                <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 1,118</span></button>
+                <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+                <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+              </div>
+            </div>
+          </article>
+
+          <article class="ab-card">
+            <div class="ab-cover">
+              <svg viewBox="0 0 640 360" role="img" aria-label="封面：开源字体项目的文件结构与校对界面">
+                <defs><linearGradient id="abCv3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1030"/><stop offset="1" stop-color="#2b1b52"/></linearGradient></defs>
+                <rect width="640" height="360" fill="url(#abCv3)"/>
+                <g stroke="#9d7bff" stroke-opacity=".5" fill="none"><rect x="60" y="60" width="250" height="240" rx="10"/><path d="M60 110 H310 M60 160 H310 M60 210 H310"/><path d="M110 60 V300"/></g>
+                <g fill="#9d7bff" opacity=".8"><rect x="76" y="76" width="22" height="18" rx="2"/><rect x="126" y="126" width="90" height="10" rx="3"/><rect x="126" y="176" width="70" height="10" rx="3"/><rect x="126" y="226" width="110" height="10" rx="3"/></g>
+                <g fill="#f2c58a" opacity=".9"><text x="360" y="150" font-family="serif" font-size="72">Aa</text></g>
+                <g stroke="#22d3ee" stroke-width="1.4" stroke-dasharray="4 5"><path d="M354 170 H560 M354 210 H520 M354 250 H540"/></g>
+              </svg>
+              <div class="ab-cover-mask"></div>
+              <span class="ab-cover-tag">创作幕后</span>
+              <span class="ab-cover-dur">09:33</span>
+              <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+            </div>
+            <div class="ab-body">
+              <h3><a href="#ab-flow">一套开源字体如何被 3000 人接力校对：从种子到发布</a></h3>
+              <p>创作者们用分片文档协作完成字形校对，过程比结果更动人。</p>
+              <div class="ab-meta">
+                <span class="ab-avatar" style="background:#9d7bff">字</span>
+                <span>排版观察所</span><span class="ab-sep"></span><span>1.6 万次播放</span>
+              </div>
+              <div class="ab-actions">
+                <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 902</span></button>
+                <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+                <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 热门视频流 ============ -->
+  <section class="ab-section" id="ab-flow">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">TRENDING</div>
+          <h2 class="ab-h2">热门视频流</h2>
+          <p class="ab-section-desc">按主题筛选，看看社区此刻在讨论什么。所有条目均由官方审核后收录。</p>
+        </div>
+        <div class="ab-tags" role="group" aria-label="视频主题筛选">
+          <button class="ab-tag-btn ab-active" data-ab-filter="all">全部</button>
+          <button class="ab-tag-btn" data-ab-filter="tech">技术</button>
+          <button class="ab-tag-btn" data-ab-filter="city">城市</button>
+          <button class="ab-tag-btn" data-ab-filter="life">生活</button>
+          <button class="ab-tag-btn" data-ab-filter="craft">手作</button>
+        </div>
+      </div>
+
+      <div class="ab-flow" id="abFlow">
+        <article class="ab-card" data-ab-cat="tech">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：多节点带宽曲线与速度对照面板">
+              <rect width="640" height="360" fill="#0a1c2c"/>
+              <g stroke="#1c4a5e"><path d="M0 90 H640 M0 180 H640 M0 270 H640"/></g>
+              <g fill="none" stroke="#22d3ee" stroke-width="3"><path d="M40 300 C140 300 150 190 250 180 S380 120 460 130 S570 90 620 80"/></g>
+              <g fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="6 6"><path d="M40 320 C160 310 220 240 320 220 S470 200 620 170"/></g>
+              <g fill="#22d3ee"><circle cx="250" cy="180" r="5"/><circle cx="460" cy="130" r="5"/></g>
+              <text x="36" y="52" font-family="monospace" font-size="13" fill="#7fd8e8">BANDWIDTH TEST</text>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">深度测评</span><span class="ab-cover-dur">14:20</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">实测 12 个节点：蚂蚁bt下载在弱网环境下的真实表现</a></h3>
+            <p>地铁、电梯、老旧小区三种场景，我们记录了平均握手时间与完成率。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#22d3ee">测</span><span>评测小组</span><span class="ab-sep"></span><span>2.3 万次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 1,204</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-comment="1"><span aria-hidden="true">💬</span><span>评论 96</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ab-card" data-ab-cat="city">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：西安城墙与夜航灯带的城市影像">
+              <defs><linearGradient id="abCv4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101a3a"/><stop offset="1" stop-color="#3a2050"/></linearGradient></defs>
+              <rect width="640" height="360" fill="url(#abCv4)"/>
+              <g fill="#1b1428"><rect x="0" y="220" width="640" height="140"/></g>
+              <g fill="#241a35"><rect x="60" y="170" width="100" height="60"/><rect x="200" y="150" width="120" height="80"/><rect x="360" y="176" width="90" height="54"/><rect x="500" y="158" width="90" height="72"/></g>
+              <g fill="#f97316" opacity=".9"><rect x="80" y="190" width="18" height="14"/><rect x="230" y="170" width="18" height="14"/><rect x="390" y="196" width="18" height="14"/><rect x="530" y="178" width="18" height="14"/></g>
+              <g fill="#f2c58a" opacity=".5"><circle cx="320" cy="80" r="36"/></g>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">城市探索</span><span class="ab-cover-dur">16:08</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">夜骑西安城墙：把 13.7 公里的灯带做成一份影像档案</a></h3>
+            <p>骑行、拍摄、归档，一个人的城市影像项目如何坚持了四年。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#f97316">骑</span><span>城墙之下</span><span class="ab-sep"></span><span>1.9 万次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 1,470</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-comment="1"><span aria-hidden="true">💬</span><span>评论 64</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ab-card" data-ab-cat="craft">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：木作工坊里的刨花与手工工具">
+              <rect width="640" height="360" fill="#2a1a10"/>
+              <g fill="#5a3a1e"><rect x="0" y="240" width="640" height="120"/></g>
+              <g fill="#d9a86a"><polygon points="120,240 200,190 280,240"/><polygon points="300,240 380,196 460,240"/></g>
+              <g stroke="#d9a86a" stroke-width="6" fill="none"><path d="M80 240 Q160 210 240 240 T400 240 T560 240"/></g>
+              <g fill="#f2c58a"><circle cx="200" cy="120" r="10"/><circle cx="320" cy="96" r="7"/><circle cx="440" cy="130" r="9"/></g>
+              <g stroke="#f2c58a" stroke-opacity=".4" stroke-dasharray="4 6"><path d="M200 120 L320 96 L440 130"/></g>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">手作DIY</span><span class="ab-cover-dur">11:47</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">从一块旧木板开始：给书桌做一次彻底的重生</a></h3>
+            <p>刨、磨、上蜡，三步完成。附可下载的尺寸图纸与工具清单。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#d9a86a">木</span><span>慢手作</span><span class="ab-sep"></span><span>1.2 万次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 880</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ab-card" data-ab-cat="life">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：清晨厨房里的手冲咖啡与蒸汽">
+              <rect width="640" height="360" fill="#f0e2cc"/>
+              <g fill="#b98b5a"><rect x="0" y="270" width="640" height="90"/></g>
+              <g fill="#6b4526"><rect x="250" y="180" width="140" height="90" rx="10"/><path d="M390 200 q40 10 0 40" fill="none" stroke="#6b4526" stroke-width="10"/></g>
+              <g stroke="#c79a6a" stroke-width="3" fill="none" opacity=".7"><path d="M280 176 q-10 -40 12 -70"/><path d="M320 176 q-10 -46 14 -80"/><path d="M360 176 q-8 -36 10 -62"/></g>
+              <g fill="#8a5b2e"><ellipse cx="320" cy="130" rx="72" ry="18"/></g>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">生活方式</span><span class="ab-cover-dur">07:52</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">六点半的手冲：一个上班族的晨间十七分钟</a></h3>
+            <p>不教配方，只记录节奏。水声、磨豆声与窗外逐渐亮起来的天。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#b98b5a">晨</span><span>日常切片</span><span class="ab-sep"></span><span>9700 次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 641</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ab-card" data-ab-cat="tech">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：开源项目代码面板与贡献者头像网格">
+              <rect width="640" height="360" fill="#071a20"/>
+              <g stroke="#164a52" fill="none"><rect x="40" y="50" width="360" height="260" rx="8"/><path d="M40 96 H400 M40 146 H400 M40 196 H400 M40 246 H400"/></g>
+              <g fill="#34d399" opacity=".85"><rect x="62" y="66" width="90" height="12" rx="3"/><rect x="62" y="112" width="140" height="12" rx="3"/><rect x="62" y="162" width="110" height="12" rx="3"/><rect x="62" y="212" width="170" height="12" rx="3"/></g>
+              <g fill="#22d3ee" opacity=".7"><circle cx="470" cy="90" r="24"/><circle cx="540" cy="90" r="24"/><circle cx="470" cy="160" r="24"/><circle cx="540" cy="160" r="24"/><circle cx="505" cy="230" r="24"/></g>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">知识科普</span><span class="ab-cover-dur">20:15</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">开源项目怎么用 BT 分发版本包：一份给新手的完整攻略</a></h3>
+            <p>从生成种子到配置校验，再到发布页的元数据写法，全流程演示。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#34d399">开</span><span>码上出发</span><span class="ab-sep"></span><span>2.7 万次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 1,832</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-comment="1"><span aria-hidden="true">💬</span><span>评论 142</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ab-card" data-ab-cat="life">
+          <div class="ab-cover">
+            <svg viewBox="0 0 640 360" role="img" aria-label="封面：宠物猫在窗台与阳光下的治愈画面">
+              <rect width="640" height="360" fill="#f3e6d2"/>
+              <g fill="#d8bb94"><rect x="0" y="250" width="640" height="110"/></g>
+              <g fill="#8a6c4a"><rect x="240" y="150" width="120" height="100" rx="46"/><polygon points="258,168 272,124 300,152"/><polygon points="342,168 330,124 302,152"/></g>
+              <g fill="#4a3520"><circle cx="285" cy="192" r="6"/><circle cx="318" cy="192" r="6"/><path d="M296 208 q6 6 12 0" stroke="#4a3520" stroke-width="3" fill="none"/></g>
+              <g fill="#f7d9a0" opacity=".7"><rect x="430" y="60" width="150" height="160" rx="10"/></g>
+            </svg>
+            <div class="ab-cover-mask"></div>
+            <span class="ab-cover-tag">治愈影像</span><span class="ab-cover-dur">05:36</span>
+            <div class="ab-cover-play"><span aria-hidden="true">▶</span></div>
+          </div>
+          <div class="ab-body">
+            <h3><a href="#ab-flow">它每天在同一个窗台等太阳：一只猫与一个下午</a></h3>
+            <p>没有旁白，只有风声。适合在加班回家的地铁上打开。</p>
+            <div class="ab-meta"><span class="ab-avatar" style="background:#d8bb94">猫</span><span>窗台观察日记</span><span class="ab-sep"></span><span>3.4 万次播放</span></div>
+            <div class="ab-actions">
+              <button data-ab-like="1"><span aria-hidden="true">♡</span><span>点赞 2,905</span></button>
+              <button data-ab-save="1"><span aria-hidden="true">☆</span><span>收藏</span></button>
+              <button data-ab-copy="1"><span aria-hidden="true">⧉</span><span>复制链接</span></button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 专题企划 ============ -->
+  <section class="ab-section" id="ab-topic">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">SERIES</div>
+          <h2 class="ab-h2">专题企划</h2>
+          <p class="ab-section-desc">长期更新的系列内容，每一季都围绕一个具体问题展开，不做空泛拼盘。</p>
+        </div>
+      </div>
+      <div class="ab-topic-grid">
+        <article class="ab-topic">
+          <span class="ab-topic-no">01</span>
+          <h3>城市资源档案</h3>
+          <p>走访 12 座城市，记录当地人如何保存与传递影像、声音与文献。成都篇已上线，西安篇正在拍摄。</p>
+          <div class="ab-topic-foot"><span class="ab-status ab-status-run">持续更新中</span><span>共 6 集</span></div>
+        </article>
+        <article class="ab-topic">
+          <span class="ab-topic-no">02</span>
+          <h3>创作者种子工程</h3>
+          <p>为独立创作者提供归档空间、流量支持与专题曝光，第二期开放报名中，已有 214 位创作者提交作品。</p>
+          <div class="ab-topic-foot"><span class="ab-status ab-status-run">报名进行中</span><span>12/03 截止</span></div>
+        </article>
+        <article class="ab-topic">
+          <span class="ab-topic-no">03</span>
+          <h3>协议简史</h3>
+          <p>用十集短片讲清楚文件共享技术三十年，从早期校园网络到今天的分布式调度，适合新用户入门。</p>
+          <div class="ab-topic-foot"><span class="ab-status ab-status-soon">即将上线</span><span>预告已发布</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 创作者矩阵 ============ -->
+  <section class="ab-section" id="ab-creator">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">CREATORS</div>
+          <h2 class="ab-h2">创作者矩阵</h2>
+          <p class="ab-section-desc">他们来自不同领域，但都在用同一种方式工作：把值得留存的东西整理好，交给下一个人。</p>
+        </div>
+        <button class="ab-btn ab-btn-ghost ab-btn-sm" data-ab-modal="submit">申请加入创作者计划</button>
+      </div>
+      <div class="ab-creator-grid">
+        <article class="ab-creator">
+          <div class="ab-creator-avatar" style="background:linear-gradient(140deg,#22d3ee,#0e7490)">林</div>
+          <h3>林见山</h3>
+          <div class="ab-role">技术解析 · 协议科普</div>
+          <p>前分布式存储工程师，擅长把复杂机制拆成五分钟能懂的动画。</p>
+          <div class="ab-creator-data"><span>作品 <b>86</b></span><span>关注 <b>4.2万</b></span></div>
+        </article>
+        <article class="ab-creator">
+          <div class="ab-creator-avatar" style="background:linear-gradient(140deg,#f97316,#b45309)">巷</div>
+          <h3>巷口记录组</h3>
+          <div class="ab-role">城市探索 · 在地文化</div>
+          <p>四人小组，专职拍城市里的旧街区、老手艺与普通人。</p>
+          <div class="ab-creator-data"><span>作品 <b>52</b></span><span>关注 <b>3.1万</b></span></div>
+        </article>
+        <article class="ab-creator">
+          <div class="ab-creator-avatar" style="background:linear-gradient(140deg,#34d399,#0f766e)">码</div>
+          <h3>码上出发</h3>
+          <div class="ab-role">开源科普 · 实用技巧</div>
+          <p>专注开源项目分发与协作流程，教程风格干脆，步骤从不省略。</p>
+          <div class="ab-creator-data"><span>作品 <b>114</b></span><span>关注 <b>5.7万</b></span></div>
+        </article>
+        <article class="ab-creator">
+          <div class="ab-creator-avatar" style="background:linear-gradient(140deg,#d9a86a,#8a5b2e)">慢</div>
+          <h3>慢手作</h3>
+          <div class="ab-role">手作DIY · 生活方式</div>
+          <p>木工与皮革手作人，视频节奏很慢，但每一帧都能学到东西。</p>
+          <div class="ab-creator-data"><span>作品 <b>64</b></span><span>关注 <b>2.8万</b></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 用户评价 ============ -->
+  <section class="ab-section ab-review-section">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">VOICES</div>
+          <h2 class="ab-h2">来自社区的真实声音</h2>
+          <p class="ab-section-desc">评价不做筛选排序，除非涉及违规内容。我们相信口碑来自真实。</p>
+        </div>
+      </div>
+      <div class="ab-review-flow">
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#22d3ee">周</span><span class="ab-review-name">周行舟<small>独立影像作者</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>自己拍的纪录片一直找不到稳定的分发方式，邮箱传文件传到崩溃。后来把种子交给蚂蚁bt下载归档，作品页有清晰的来源标注和校验信息，观众反馈也集中了。这是我今年做过最省心的一件事。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#f97316">阿</span><span class="ab-review-name">阿峦<small>后端工程师</small></span><span class="ab-review-stars" aria-label="四星评价">★★★★☆</span></div>
+          <p>分片校验做得很扎实，弱网环境下断点续传确实能救急。唯一想提的是检索页的筛选维度还能再细一点，比如按文件体积区间过滤。整体已经比大多数同类站点干净太多了。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#34d399">木</span><span class="ab-review-name">木木<small>大学生</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>最开始是被城市资源档案吸引来的，结果发现教程区也好看。对新手很友好，没有那种故作高深的技术黑话，看完真的能自己动手。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#9d7bff">沉</span><span class="ab-review-name">沉默的大多数<small>设计从业者</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>找开源字体素材找了很多年，第一次在一个平台看到完整的授权说明与校对记录。这种把来龙去脉写清楚的态度，比资源本身更打动人。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#f2c58a">老</span><span class="ab-review-name">老陈茶馆<small>线下合作空间</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>他们真的带着设备来茶馆拍了一下午，还帮我们把老照片整理成了线上档案。现在来喝茶的年轻人会问起这些照片的故事，挺好的。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#22c55e">小</span><span class="ab-review-name">小满<small>开源项目维护者</small></span><span class="ab-review-stars" aria-label="四星评价">★★★★☆</span></div>
+          <p>版本包分发走了他们的通道，带宽成本降了不少。文档写得清楚，配置过程没卡住。希望以后能增加按项目维度的下载统计报表。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#38bdf8">半</span><span class="ab-review-name">半页书<small>读书博主</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>朋友推荐来的，原本只想找点老电影修复版，结果被专题企划留住了。协议简史那支预告片拍得很有质感，等上线。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#e879f9">月</span><span class="ab-review-name">月见<small>插画师</small></span><span class="ab-review-stars" aria-label="五星评价">★★★★★</span></div>
+          <p>素材区的分类很细，而且每一条都有实际预览和文件说明，不会下载下来才发现是空包。这一点就值得常来。</p>
+        </div>
+        <div class="ab-review">
+          <div class="ab-review-head"><span class="ab-avatar" style="background:#fb7185">一</span><span class="ab-review-name">一路向北<small>摄影爱好者</small></span><span class="ab-review-stars" aria-label="四星评价">★★★★☆</span></div>
+          <p>夜骑西安那集看完直接买了车灯。影像调色很舒服，拍摄机位也分享了，跟着学了一手。希望多出点这种带方法的行程记录。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 企业动态 ============ -->
+  <section class="ab-section" id="ab-log">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">UPDATES</div>
+          <h2 class="ab-h2">企业动态与更新日志</h2>
+          <p class="ab-section-desc">官方发布的功能更新、活动信息与内容上新，按时间倒序记录。</p>
+        </div>
+      </div>
+      <div class="ab-log-list">
+        <div class="ab-log">
+          <time datetime="2026-11-19">2026-11-19</time>
+          <h3>蚂蚁bt下载 4.3 版本发布：分片校验与续传策略升级</h3>
+          <p>新版本引入分层哈希校验，弱网环境下的完整下载率提升约 18%；同时优化了断点续传的调度逻辑，切换网络后不再从头开始。</p>
+        </div>
+        <div class="ab-log">
+          <time datetime="2026-11-12">2026-11-12</time>
+          <h3>创作者种子工程第二期开放报名</h3>
+          <p>本期计划面向影像、开源、手作、城市记录四个方向，入选者可获得归档空间与专题推荐位。报名截止 12 月 3 日，通过官网投稿入口提交。</p>
+        </div>
+        <div class="ab-log">
+          <time datetime="2026-11-05">2026-11-05</time>
+          <h3>《城市资源档案·成都篇》完结，共 6 集</h3>
+          <p>本期走访了老茶馆、旧书店、独立唱片店与一间社区影像馆，相关素材档案已同步开放浏览。</p>
+        </div>
+        <div class="ab-log">
+          <time datetime="2026-10-28">2026-10-28</time>
+          <h3>内容审核规则更新说明</h3>
+          <p>进一步明确权属声明要求，新增上传时的授权类型选择项，并对举报处理结果做月度公示，持续提升内容生态的透明度。</p>
+        </div>
+        <div class="ab-log">
+          <time datetime="2026-10-16">2026-10-16</time>
+          <h3>与三家开源基金会达成分发合作</h3>
+          <p>合作覆盖版本包镜像、文档归档与社区活动支持，相关项目页已上线，可在品牌合作区查看。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="ab-section" id="ab-faq">
+    <div class="ab-wrap">
+      <div class="ab-section-head" style="justify-content:center;text-align:center">
+        <div>
+          <div class="ab-section-kicker">HELP</div>
+          <h2 class="ab-h2">常见问题</h2>
+          <p class="ab-section-desc" style="margin-left:auto;margin-right:auto">关于使用、投稿与内容规范的集中解答。</p>
+        </div>
+      </div>
+      <div class="ab-faq">
+        <details open>
+          <summary>蚂蚁bt下载是什么？它和普通的资源站有什么区别？</summary>
+          <p>蚂蚁bt下载是一个以 BT 协议为核心的资源分发与内容聚合平台，运营主体为企业。与普通资源站相比，我们更强调来源可查、分片可校验与评价可追溯，并围绕资源建立了教程、测评、专题与创作者档案等内容层，使它更像一个持续运营的内容生态，而不是一次性的下载入口。</p>
+        </details>
+        <details>
+          <summary>如何提交自己的原创作品或种子档案？</summary>
+          <p>点击页面中任意「提交创作投稿」按钮，填写作品名称、内容方向、授权声明与联系方式即可。官方审核团队通常会在 48 小时内回复。涉及第三方素材的作品，请在提交时注明授权来源，正版与原创内容优先处理。</p>
+        </details>
+        <details>
+          <summary>下载速度受什么影响？为什么有时会比较慢？</summary>
+          <p>速度主要取决于资源健康度与当前在线节点数量。健康度评分会显示在资源详情中，评分越高通常意味着可用节点越多。此外，本地网络类型、运营商线路与设备性能也会影响实际体验。建议在弱网环境下使用新版本的断点续传功能。</p>
+        </details>
+        <details>
+          <summary>平台上的资源版权如何处理？</summary>
+          <p>平台只收录来源清晰、权属可查的条目。创作者需在上传时声明授权方式，官方会进行复核。若权利人认为某条目存在权属问题，可通过反馈入口提交材料，我们会在核实后及时处理，并在月度公示中说明结果。</p>
+        </details>
+        <details>
+          <summary>如何加入创作者计划？需要满足什么条件？</summary>
+          <p>创作者计划每季度开放一次报名，方向包括影像记录、技术科普、手作教程、城市观察等。需要的不是粉丝量，而是稳定的更新节奏与清晰的内容主张。入选后可获得归档空间、专题推荐与活动支持。</p>
+        </details>
+        <details>
+          <summary>站点是否提供企业级分发方案？</summary>
+          <p>提供。面向开源基金会、教育机构与公益组织，我们可提供节点调度、日志审计、定制归档与带宽保障等服务。可在联系我们模块留下机构名称与需求，商务团队会安排对接。</p>
+        </details>
+        <details>
+          <summary>遇到资源失效或异常内容怎么办？</summary>
+          <p>在资源详情页点击「反馈」按钮，选择对应类型并简要描述情况。系统会自动附上资源编号，便于审核团队定位。处理结果会在反馈记录中回执，高频问题也会汇总进每月的更新说明。</p>
+        </details>
+        <details>
+          <summary>平台会保存我的下载记录吗？</summary>
+          <p>用户在站内的收藏与历史记录仅用于个人体验优化，不对外展示。企业级合作场景下的日志审计遵循最小必要原则，并在合作协议中明确约定范围与保存期限。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 合作与联系 ============ -->
+  <section class="ab-section" id="ab-contact">
+    <div class="ab-wrap">
+      <div class="ab-section-head">
+        <div>
+          <div class="ab-section-kicker">PARTNERS &amp; CONTACT</div>
+          <h2 class="ab-h2">合作品牌与联系入口</h2>
+          <p class="ab-section-desc">我们与开源组织、文化机构、独立工作室长期协作，共同推动可信分发。</p>
+        </div>
+      </div>
+      <div class="ab-partners" style="margin-bottom:34px">
+        <div class="ab-partner">开源镜像联盟</div>
+        <div class="ab-partner">城市影像馆</div>
+        <div class="ab-partner">慢手作工坊</div>
+        <div class="ab-partner">排版观察所</div>
+        <div class="ab-partner">巷口记录组</div>
+        <div class="ab-partner">老陈茶馆空间</div>
+      </div>
+      <div class="ab-contact-grid">
+        <div class="ab-contact-card">
+          <h3>想一起做点长期的事？</h3>
+          <p>无论是内容共创、技术合作还是机构分发需求，我们都有专门的人对接。请在投稿入口留下你的方向与联系方式，或在商务渠道说明机构背景与具体场景。</p>
+          <div class="ab-contact-actions">
+            <button class="ab-btn ab-btn-main" data-ab-modal="submit">提交合作意向</button>
+            <button class="ab-btn ab-btn-ghost" data-ab-modal="share">分享本页</button>
+          </div>
+        </div>
+        <div class="ab-contact-list">
+          <div class="ab-contact-item">
+            <span class="ab-contact-ico" aria-hidden="true">✉</span>
+            <div><b>内容与投稿</b><span>提交作品、专题共创与创作者计划咨询</span></div>
+          </div>
+          <div class="ab-contact-item">
+            <span class="ab-contact-ico" aria-hidden="true">◎</span>
+            <div><b>企业级分发合作</b><span>开源组织、教育机构与公益项目专属通道</span></div>
+          </div>
+          <div class="ab-contact-item">
+            <span class="ab-contact-ico" aria-hidden="true">⚑</span>
+            <div><b>版权与反馈</b><span>权属申诉、内容举报与改进建议</span></div>
+          </div>
+          <div class="ab-contact-item">
+            <span class="ab-contact-ico" aria-hidden="true">◷</span>
+            <div><b>工作时间</b><span>工作日 10:00–19:00，法定节假日顺延</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="ab-footer">
+  <div class="ab-wrap">
+    <div class="ab-footer-grid">
+      <div class="ab-footer-brand">
+        <a class="ab-brand" href="#ab-top" aria-label="返回蚂蚁bt下载官网首页">
+          <span class="ab-brand-mark" aria-hidden="true">蚁</span>
+          <span class="ab-brand-name">蚂蚁bt下载<small>ANT-BT DOWNLOAD</small></span>
+        </a>
+        <p>蚂蚁bt下载官方网站，持续运营的资源分发与内容社区。我们以专业、正版、高清为底线，为创作者与用户搭建值得信赖的内容生态。</p>
+      </div>
+      <div>
+        <h4>内容</h4>
+        <ul>
+          <li><a href="#ab-focus">焦点内容</a></li>
+          <li><a href="#ab-flow">热门视频流</a></li>
+          <li><a href="#ab-topic">专题企划</a></li>
+          <li><a href="#ab-creator">创作者矩阵</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>关于</h4>
+        <ul>
+          <li><a href="#ab-deep">品牌解析</a></li>
+          <li><a href="#ab-log">企业动态</a></li>
+          <li><a href="#ab-contact">合作与联系</a></li>
+          <li><a href="#ab-faq">帮助中心</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>参与</h4>
+        <ul>
+          <li><a href="#ab-creator">创作者计划</a></li>
+          <li><a href="#ab-topic">专题报名</a></li>
+          <li><a href="#ab-contact">投稿入口</a></li>
+          <li><a href="#ab-faq">内容规范</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ab-footer-bottom">
+      <span>© 2014–2026 蚂蚁bt下载 官方网站 · 版权所有 · 持续运营中</span>
+      <span>企业主体：蚂蚁bt下载网络科技有限公司 · 内容生态与品牌保护声明</span>
+    </div>
+  </div>
+</footer>
+
+<button class="ab-top" id="abTop" aria-label="回到页面顶部">↑</button>
+<div class="ab-toast" id="abToast" role="status" aria-live="polite"></div>
+
+<!-- ============ 弹窗 ============ -->
+<div class="ab-modal" id="abModal" role="dialog" aria-modal="true" aria-labelledby="abModalTitle">
+  <div class="ab-modal-box">
+    <button class="ab-modal-close" id="abModalClose" aria-label="关闭弹窗">✕</button>
+    <h3 id="abModalTitle">提交创作投稿</h3>
+    <p id="abModalDesc">留下作品方向与联系方式，官方审核团队会在 48 小时内回复。</p>
+    <div id="abModalForm">
+      <div class="ab-field"><label for="abF1">作品或项目名称</label><input id="abF1" type="text" placeholder="例如：城市资源档案·西安篇"></div>
+      <div class="ab-field"><label for="abF2">内容方向</label><input id="abF2" type="text" placeholder="技术解析 / 城市探索 / 手作教程"></div>
+      <div class="ab-field"><label for="abF3">联系方式</label><input id="abF3" type="text" placeholder="邮箱或常用社交账号"></div>
+      <div class="ab-field"><label for="abF4">补充说明</label><textarea id="abF4" rows="3" placeholder="简要描述作品内容与授权情况"></textarea></div>
+      <button class="ab-btn ab-btn-main" id="abModalSubmit" style="width:100%">确认提交</button>
+    </div>
+    <div id="abSharePanel" style="display:none">
+      <div class="ab-field"><label for="abShareLink">页面链接</label><input id="abShareLink" type="text" readonly value="蚂蚁bt下载 官方网站 · 资源分发与内容社区"></div>
+      <div class="ab-share-row">
+        <button data-ab-share="微信">微信</button>
+        <button data-ab-share="微博">微博</button>
+        <button data-ab-share="QQ">QQ</button>
+        <button data-ab-share="复制">复制链接</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 工具 ---------- */
+  var toastEl = document.getElementById('abToast');
+  var toastTimer = null;
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('ab-show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('ab-show'); }, 2200);
+  }
+
+  /* ---------- 移动端导航 ---------- */
+  var burger = document.getElementById('abBurger');
+  var nav = document.getElementById('abNav');
+  if(burger && nav){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('ab-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? '收起导航菜单' : '展开导航菜单');
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 820){
+        nav.classList.remove('ab-open');
+        burger.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* ---------- 搜索反馈 ---------- */
+  var searchInput = document.getElementById('abSearchInput');
+  var searchTip = document.getElementById('abSearchTip');
+  var searchData = [
+    'BT 分片校验如何把下坏概率压到千分之一',
+    '城市资源档案·成都篇',
+    '开源字体 3000 人接力校对',
+    '弱网环境下的真实表现测评',
+    '夜骑西安城墙影像档案',
+    '旧木板书桌改造教程',
+    '创作者种子工程第二期',
+    '协议简史 系列预告'
+  ];
+  if(searchInput && searchTip){
+    searchInput.addEventListener('input', function(){
+      var q = searchInput.value.trim();
+      if(!q){ searchTip.classList.remove('ab-open'); searchTip.innerHTML=''; return; }
+      var hits = searchData.filter(function(t){ return t.toLowerCase().indexOf(q.toLowerCase()) > -1; });
+      if(hits.length){
+        searchTip.innerHTML = '找到 <strong>' + hits.length + '</strong> 条相关内容：' +
+          hits.slice(0,4).map(function(t){ return '<div style="padding:5px 6px;border-radius:6px">· ' + t + '</div>'; }).join('');
+      } else {
+        searchTip.innerHTML = '暂无与「<strong>' + q.replace(/[<>&]/g,'') + '</strong>」直接匹配的条目，可尝试「校验」「城市」「开源」等关键词。';
+      }
+      searchTip.classList.add('ab-open');
+    });
+    searchInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){
+        toast(searchInput.value.trim() ? '已记录检索关键词：' + searchInput.value.trim() : '请输入检索关键词');
+        searchTip.classList.remove('ab-open');
+      }
+    });
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.ab-search')) searchTip.classList.remove('ab-open');
+    });
+  }
+
+  /* ---------- 视频流筛选 ---------- */
+  var filterBtns = document.querySelectorAll('[data-ab-filter]');
+  var flowCards = document.querySelectorAll('#abFlow [data-ab-cat]');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('ab-active'); });
+      btn.classList.add('ab-active');
+      var cat = btn.getAttribute('data-ab-filter');
+      var shown = 0;
+      flowCards.forEach(function(card){
+        var ok = (cat === 'all' || card.getAttribute('data-ab-cat') === cat);
+        card.classList.toggle('ab-hide', !ok);
+        if(ok) shown++;
+      });
+      toast('已筛选出 ' + shown + ' 条内容');
+    });
+  });
+
+  /* ---------- 点赞 / 收藏 / 复制 / 评论 ---------- */
+  document.addEventListener('click', function(e){
+    var likeBtn = e.target.closest('[data-ab-like]');
+    if(likeBtn){
+      var txt = likeBtn.querySelector('span:last-child');
+      var liked = likeBtn.classList.toggle('ab-liked');
+      var m = txt.textContent.match(/(\d[\d,]*)/);
+      if(m){
+        var n = parseInt(m[1].replace(/,/g,''),10);
+        n = liked ? n + 1 : n - 1;
+        txt.textContent = '点赞 ' + n.toLocaleString('en-US');
+      }
+      likeBtn.querySelector('span').textContent = liked ? '♥' : '♡';
+      toast(liked ? '已点赞，感谢支持' : '已取消点赞');
+      return;
+    }
+    var saveBtn = e.target.closest('[data-ab-save]');
+    if(saveBtn){
+      var saved = saveBtn.classList.toggle('ab-saved');
+      saveBtn.querySelector('span').textContent = saved ? '★' : '☆';
+      saveBtn.querySelector('span:last-child').textContent = saved ? '已收藏' : '收藏';
+      toast(saved ? '已加入收藏夹' : '已从收藏夹移除');
+      return;
+    }
+    var copyBtn = e.target.closest('[data-ab-copy]');
+    if(copyBtn){
+      var linkText = '蚂蚁bt下载官方网站 · ' + (copyBtn.closest('.ab-card') ? copyBtn.closest('.ab-card').querySelector('h3').textContent.trim() : '内容页');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(linkText).then(function(){
+          toast('链接信息已复制');
+        }).catch(function(){
+          toast('复制失败，请手动选择文本');
+        });
+      } else {
+        toast('已生成分享信息：' + linkText);
+      }
+      return;
+    }
+    var commentBtn = e.target.closest('[data-ab-comment]');
+    if(commentBtn){
+      toast('评论功能已展开，欢迎留下你的看法');
+      return;
+    }
+  });
+
+  /* ---------- 数字滚动 ---------- */
+  var counters = document.querySelectorAll('[data-ab-count]');
+  var counted = false;
+  function runCounters(){
+    if(counted) return;
+    counted = true;
+    counters.forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-ab-count'));
+      var decimal = String(target).indexOf('.') > -1 ? 1 : 0;
+      var start = 0, dur = 1300, t0 = null;
+      function step(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var val = target * (1 - Math.pow(1 - p, 3));
+        el.textContent = decimal ? val.toFixed(1) : Math.round(val).toLocaleString('en-US');
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if(counters.length){
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting) { runCounters(); io.disconnect(); } });
+      }, {threshold:.4});
+      io.observe(counters[0]);
+    } else {
+      runCounters();
+    }
+  }
+
+  /* ---------- 回到顶部 ---------- */
+  var topBtn = document.getElementById('abTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 520) topBtn.classList.add('ab-show');
+    else topBtn.classList.remove('ab-show');
+  }, {passive:true});
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---------- 弹窗 ---------- */
+  var modal = document.getElementById('abModal');
+  var modalTitle = document.getElementById('abModalTitle');
+  var modalDesc = document.getElementById('abModalDesc');
+  var modalForm = document.getElementById('abModalForm');
+  var sharePanel = document.getElementById('abSharePanel');
+  var modalClose = document.getElementById('abModalClose');
+  var lastFocus = null;
+
+  function openModal(type){
+    lastFocus = document.activeElement;
+    if(type === 'share'){
+      modalTitle.textContent = '分享本页';
+      modalDesc.textContent = '把蚂蚁bt下载官方网站分享给可能需要的朋友，一起参与内容生态建设。';
+      modalForm.style.display = 'none';
+      sharePanel.style.display = 'block';
+    } else {
+      modalTitle.textContent = '提交创作投稿';
+      modalDesc.textContent = '留下作品方向与联系方式，官方审核团队会在 48 小时内回复。';
+      modalForm.style.display = 'block';
+      sharePanel.style.display = 'none';
+    }
+    modal.classList.add('ab-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){
+      var f = modal.querySelector('input, textarea, button.ab-modal-close');
+      if(f) f.focus();
+    }, 60);
+  }
+  function closeModal(){
+    modal.classList.remove('ab-open');
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+  document.addEventListener('click', function(e){
+    var trigger = e.target.closest('[data-ab-modal]');
+    if(trigger){ openModal(trigger.getAttribute('data-ab-modal')); }
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('ab-open')) closeModal(); });
+
+  var modalSubmit = document.getElementById('abModalSubmit');
+  modalSubmit.addEventListener('click', function(){
+    var name = document.getElementById('abF1').value.trim();
+    var dir = document.getElementById('abF2').value.trim();
+    var contact = document.getElementById('abF3').value.trim();
+    if(!name || !dir || !contact){
+      toast('请先填写作品名称、内容方向与联系方式');
+      return;
+    }
+    closeModal();
+    toast('投稿已提交，官方将在 48 小时内回复');
+  });
+
+  sharePanel.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-ab-share]');
+    if(!btn) return;
+    var channel = btn.getAttribute('data-ab-share');
+    if(channel === '复制'){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText('蚂蚁bt下载 官方网站 · 资源分发与内容社区').then(function(){
+          toast('分享信息已复制');
+        }).catch(function(){ toast('复制失败，请手动选择文本'); });
+      } else {
+        toast('分享信息已生成');
+      }
+    } else {
+      toast('已生成' + channel + '分享信息');
+    }
+  });
+
+})();
+</script>
+</body>
+                                         </html>
